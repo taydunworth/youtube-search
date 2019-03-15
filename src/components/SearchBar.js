@@ -1,7 +1,7 @@
 import React from 'react';
 
 class SearchBar extends React.Component {
-    state = { term: '' };
+    state = { term: 'disney' };
 
     onInputChange = (e) => {
         this.setState({ term: e.target.value });
@@ -25,6 +25,7 @@ class SearchBar extends React.Component {
                             onChange={this.onInputChange} />
                     </div>
                 </form>
+                <h5 className="ui header">Showing results for: "{this.state.term}"</h5>
             </div>
         )
     };

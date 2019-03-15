@@ -1,4 +1,6 @@
+import './App.css';
 import React from 'react';
+import Intro from './Intro';
 import SearchBar from './SearchBar';
 import youtube from '../apis/youtube';
 import VideoList from './VideoList';
@@ -7,6 +9,10 @@ import VideoDetail from './VideoDetail';
 class App extends React.Component {
     state = { videos: [], selectedVideo: null };
 
+    componentDidMount() {
+        this.onTermSubmit('disney');
+    }
+
     onTermSubmit = async term => {
         const response = await youtube.get('/search', {
             params: {
@@ -14,7 +20,10 @@ class App extends React.Component {
             }
         });
 
-        this.setState({ videos: response.data.items });
+        this.setState({
+            videos: response.data.items,
+            selectedVideo: response.data.items[0]
+        });
     };
     
     onVideoSelect = (video) => {
@@ -23,7 +32,8 @@ class App extends React.Component {
 
     render() {
         return (
-            <div className="ui container">
+            <div className="app ui container">
+                <Intro />
                 <SearchBar onTermSubmit={this.onTermSubmit} />
                 <div className="ui grid">
                     <div className="ui row">
